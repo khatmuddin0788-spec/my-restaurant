@@ -7,13 +7,20 @@ import Cart from "./components/Cart";
 import FoodCard from "./components/FoodCard";
 import { useEffect, useState } from "react";
 import { auth, db} from "./firebase";
+type Food = {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  category: string;
+};
 
 import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
 export default function Home() {
-  const [cartItems, setCartItems] = useState<string[]>([]);
+  const [cartItems, setCartItems] = useState<Food[]>([]);
   useEffect(() => {
   const savedCart =
     localStorage.getItem("restaurantCart");
@@ -49,7 +56,7 @@ useEffect(() => {
 
 }, []);
 
-const addToCart = async (food: any) => {
+const addToCart = async (food: Food) => {
 
   setCartItems([...cartItems, food]);
   localStorage.setItem(
