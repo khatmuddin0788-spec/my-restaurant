@@ -12,7 +12,7 @@ type Food = {
 
 type FoodCardProps = {
   food: Food;
-  addToCart: (food: string) => void;
+  addToCart: (food: Food) => void;
 };
 
 export default function FoodCard({
