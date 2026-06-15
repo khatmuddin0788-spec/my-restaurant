@@ -25,15 +25,15 @@ export default function MyOrders() {
         );
 
         const myOrders = snapshot.docs
-          .map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }))
-          .filter(
-            (order: any) =>
-              order.email === user.email
-          );
-
+  .map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }))
+  .filter(
+    (order: any) =>
+      order.email === user.email
+  )
+  .reverse();
         setOrders(myOrders);
       }
     );
@@ -52,23 +52,45 @@ export default function MyOrders() {
       </p>
 
       {orders.length === 0 ? (
-        <p>No orders found</p>
+        <div className="bg-gray-900 p-6 rounded-xl">
+          <p className="text-xl text-gray-300">
+            You have no orders yet.
+          </p>
+        </div>
       ) : (
         <div className="space-y-6">
           {orders.map((order: any) => (
             <div
               key={order.id}
-              className="bg-gray-900 p-6 rounded-xl"
+              className="bg-gray-900 p-6 rounded-xl flex justify-between items-center"
             >
-              <h2 className="text-2xl font-bold">
-                {order.name}
-              </h2>
+              <div>
+                <h2 className="text-2xl font-bold mb-2">
+                  {order.name}
+                </h2>
 
-              <p>${order.price}</p>
+                <p className="text-lg">
+                  ${order.price}
+                </p>
 
-              <p className="text-yellow-400">
-                Status: {order.status}
-              </p>
+                <p
+                  className={`font-bold mt-2 ${
+                    order.status === "Delivered"
+                      ? "text-green-400"
+                      : "text-yellow-400"
+                  }`}
+                >
+                  Status: {order.status}
+                </p>
+              </div>
+
+              {order.image && (
+                <img
+                  src={order.image}
+                  alt={order.name}
+                  className="w-24 h-24 object-cover rounded-xl"
+                />
+              )}
             </div>
           ))}
         </div>
