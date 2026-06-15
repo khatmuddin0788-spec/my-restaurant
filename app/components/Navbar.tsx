@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 export default function Navbar({
   cartCount,
   onCartClick,
@@ -24,6 +25,12 @@ export default function Navbar({
         >
           Cart ({cartCount})
         </button>
+        <Link
+  href="/my-orders"
+  className="text-white hover:text-orange-500"
+>
+  My Orders
+</Link>
 
         {user ? (
 
